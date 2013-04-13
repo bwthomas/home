@@ -1,0 +1,68 @@
+###################################
+##  Preliminary environment setup
+
+[ -z "$PS1" ] && return                                                       # If not running interactively, don't do anything
+
+export SHELL_RC_DIR=${SHELL_RC_DIR-"${HOME}/.dot"}
+
+[ -f "${SHELL_RC_DIR}/aliases" ]    && source "${SHELL_RC_DIR}/aliases"       # Alias definitions
+[ -f "${SHELL_RC_DIR}/completion" ] && source "${SHELL_RC_DIR}/completion"    # autocompletion
+[ -f "${SHELL_RC_DIR}/functions" ]  && source "${SHELL_RC_DIR}/functions"     # functions
+[ -f "${SHELL_RC_DIR}/path" ]       && source "${SHELL_RC_DIR}/path"          # Configure PATH variable
+[ -f "${SHELL_RC_DIR}/prompt" ]     && source "${SHELL_RC_DIR}/prompt"        # Configure interactive prompt
+
+##############################################
+## Dynamic title for terminal windows & tabs
+
+precmd () {
+  case $TERM in
+    *xterm*|ansi)
+      print -Pn "\e]1;%n@%m: %~\a"
+    ;;
+  esac
+}
+
+###############################
+##  Set environment variables
+
+# Select tools
+[ "`which vim`" != "vim not found" ] && export EDITOR=vim
+[ "`which less`" != "less not found" ] && export PAGER=less
+
+# Configure ZSH history
+APPEND_HISTORY=yes
+HIST_EXPIRE_DUPS_FIRST=yes
+HIST_FIND_NO_DUPS=yes
+HIST_REDUCE_BLANKS=yes
+HIST_SAVE_BY_COPY=no
+HISTFILE="${HOME}/.dot/history"
+HISTSIZE=2000
+INC_APPEND_HISTORY=yes
+SAVEHIST=2000
+SHARE_HISTORY=yes
+
+export APPEND_HISTORY HISTCONTROL HIST_EXPIRE_DUPS_FIRST HIST_FIND_NO_DUPS HIST_REDUCE_BLANKS HIST_SAVE_BY_COPY HISTFILE HISTSIZE INC_APPEND_HISTORY SAVEHIST SHARE_HISTORY
+
+# Other ENV variables
+COLORTERM=yes
+CLICOLOR=yes
+DISPLAY=:0.0
+FIGNORE='.o:.out:~'
+PROJECTS_DIR="${HOME}/Projects"
+RSYNC_RSH=/usr/bin/ssh
+
+export COLORTERM CLICOLOR DISPLAY FIGNORE PROJECTS_DIR RSYNC_RSH
+
+#####################
+## Set CLI behavior
+
+set -o vi
+set -o autocd
+set -o autopushd
+set -o pushdsilent
+
+##############
+## Finish up
+
+mesg y 2>/dev/null
+sleep 1 && clear

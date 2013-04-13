@@ -1,0 +1,10 @@
+#!/bin/bash
+
+SLEEPTIME=${SLEEPTIME-3}
+INVOCATION=`basename $0`
+
+echo "Don't use '${INVOCATION}' anymore, asshole."
+echo "Sleeping for ${SLEEPTIME} seconds before I try '$@' ..."
+echo
+sleep $SLEEPTIME
+"$@"

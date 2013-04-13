@@ -1,0 +1,47 @@
+# cucumber
+alias cuke="cucumber -r ./features"
+
+# rake
+alias redb="rake db:reset db:migrate"
+
+# git
+alias  br="git rev-parse --abbrev-ref HEAD"
+alias  ga="git add"
+alias  gb="git branch"
+alias  gc="git checkout"
+alias  gd="git d"
+alias gdc="git d --cached"
+alias  gl="git hist"
+alias  gs="git status"
+alias see="git s"
+
+# postgres
+alias pgup="pg_ctl -l /tmp/pg_logfile start"
+alias pgdn="pg_ctl -l /tmp/pg_logfile stop -m fast"
+alias pgre="pg_ctl -l /tmp/pg_logfile stop -m fast && pg_ctl -l /tmp/pg_logfile start"
+alias pgst="pg_ctl status"
+
+# pow
+alias powdn="powify server stop"
+alias powre="powify server restart"
+alias powup="powify server start"
+alias powls="powify server list"
+alias powst="powify server status"
+
+# screen
+alias sd="screen -DR"
+
+# Miscelaneous
+alias     :q="exit"
+alias    ...="up" # See ~/.dot/functions
+alias     cx='chmod +x'
+alias     df='df -Th'
+alias    dot="ls -al | egrep -v '^d|^l|^total [0123456789]+|-> \.dot/'"
+alias     ds='dirs'
+alias    dsc='dirs -c'
+alias  exit!='exit 1'
+alias     ms="du -hs ./* | egrep -v '[0123456789]+K|0\s+'"
+alias swatch="time watch --differences=cumulative -t -n 1 date"
+alias  timex="sudo ntpdate -u time.apple.com"
+alias   were="find . -name"
+alias   vim="vim -O"

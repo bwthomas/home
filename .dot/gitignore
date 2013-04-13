@@ -1,0 +1,14 @@
+*
+!bin/
+!bin/*
+!.dot/
+!.dot/*
+.dot/gem/
+.dot/gem/*
+.dot/keys/
+.dot/keys/*
+.dot/ssh/
+.dot/ssh/*
+.dot/*history*
+.dot/lesshst
+.dot/pgpass

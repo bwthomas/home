@@ -1,0 +1,10 @@
+[ -f "${SHELL_RC_DIR}/functions" ] && source "${SHELL_RC_DIR}/functions"      # Configure PATH variable
+[ "`which path`" = "path not found" ] && return
+
+# path additions
+path /usr/local/sbin
+path /usr/local/bin
+path /opt/bin
+path /usr/local/git/libexec/git-core
+path /Users/bthomas/.rbenv/bin
+path /Users/bthomas/bin

@@ -1,0 +1,8 @@
+begin
+  require 'wirble'
+  IRB.conf[:PROMPT_MODE] = :SIMPLE
+  Wirble.init
+  Wirble.colorize
+rescue
+  $stderr.puts "Some errors occurred. See '~/.irbrc' for details."
+end

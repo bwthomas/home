@@ -1,0 +1,68 @@
+#!/bin/bash
+
+pname=`basename $0`
+USAGE="usage: -vs ${pname} <directory>"
+
+while getopts "vs" opt
+do
+  case $opt in
+    v     ) VERBOSE=true;;
+    s     ) SAFE=true;;
+    *     ) echo $USAGE >&2 && exit 0;;
+  esac
+done
+
+shift $(($OPTIND - 1))
+if [ -z "$VERBOSE" ]; then
+	VERBOSE=false
+fi
+if [ -z "$SAFE" ]; then
+	SAFE=false
+fi
+
+if [ -d "$1" ]; then
+	wd=`pwd`
+	if [ "${wd}" != "${HOME}" ]; then
+		key=""
+		echo -n "You're not in ${HOME}. Any key continues, ^C to quit ..."
+		stty -icanon
+		key=`dd count=1 2>/dev/null`
+		stty icanon
+	fi
+
+	if $SAFE ; then
+		echo "Appending '-old' to existing files ..."
+	else
+		echo "Removing existing files ..."
+	fi
+	for dotfile in $1/*; do
+		fname=`basename $dotfile`
+		spath=`echo -n "${wd}/.${fname}" | sed 's://*:/:g'`
+		fpath=`echo -n ${dotfile} | sed 's://*:/:g'`
+		if [ -e $spath ]; then
+			if $SAFE ; then
+				CMD="mv ${spath} ${spath}-old"
+				${CMD}
+			else
+				CMD="rm -rf ${spath}"
+				$CMD
+			fi
+			if $VERBOSE ; then
+				echo "   ${CMD}"
+			fi
+		fi
+	done
+	echo "Creating symbolic links ..."
+	for dotfile in $1/*; do
+		fname=`basename $dotfile`
+		spath=`echo -n "${wd}/.${fname}" | sed 's://*:/:g'`
+		fpath=`echo -n ${dotfile} | sed 's://*:/:g'`
+		if $VERBOSE ; then
+			echo "   ln -s ${fpath} ${spath}"
+		fi
+		ln -s ${fpath} ${spath}
+	done
+	echo "Finished."
+else
+	echo $USAGE >&2
+fi

@@ -1,0 +1,25 @@
+# visual bell off
+vbell off
+
+# no message when screen is started
+startup_message off
+
+# define the scrollback buffer
+defscrollback 10000
+
+# Change ctrl-a to ctrl-g
+escape ^Gg
+
+# Hangup causes screen to detatch instead of exit.
+autodetach on
+
+# make the shell in every window a login shell
+shell -$SHELL
+
+# set every new windows hardstatus line to somenthing descriptive
+# defhstatus "screen: ^En (^Et)"
+defhstatus "^Et"
+
+# adds a caption at the bottom of the screen
+#caption always '%{= kG}[ %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%{g} ]%= [%{B} %d/%M/%Y %{W}%c:%s %{g}]'
+caption always '%{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{B}%d/%M/%Y %{W}%c:%s'

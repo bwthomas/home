@@ -1,0 +1,6 @@
+export SHELL_RC_DIR=${SHELL_RC_DIR-"${HOME}/.dot"}                  # Set location for shell configuration files
+[ -f "${SHELL_RC_DIR}/path" ] && source "${SHELL_RC_DIR}/path"      # Configure PATH variable
+[ "`which rbenv`" != "rbenv not found" ] && eval "$(rbenv init - --no-rehash)"  # rbenv
+
+[ -d "/usr/local/pgsql/data" ] &&  export PGDATA="/usr/local/pgsql/data"
+[ -d "${PGDATA}/pgsql_socket" ] && export PGHOST="${PGDATA}/pgsql_socket"

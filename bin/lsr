@@ -1,0 +1,111 @@
+#!/usr/bin/env python
+
+import os,re
+from sys import argv
+
+show_escaped = 1
+show_full_path = 1
+show_directories = 0
+show_only_directories = 0
+
+is_option_list = re.compile("^-[a-zA-Z]+$")
+is_option = re.compile("^--[0-9a-zA-Z]+-?[0-9a-zA-Z]+$")
+
+prog_full_path = argv[0]
+progname = os.path.basename(prog_full_path)
+
+help = 0
+
+def process_node(r,path,file):
+	fpath = "%s/%s" % (path,file)
+	fpath = os.path.abspath(fpath)
+
+	if show_only_directories and os.path.isdir(fpath):
+		r.append(fpath)
+		display_node(file,fpath,ESCAPED=show_escaped,FULL_PATH=show_full_path)
+		return fpath
+
+	elif (show_directories or not os.path.isdir(fpath)) and not show_only_directories:
+		r.append(fpath)
+		display_node(file,fpath,ESCAPED=show_escaped,FULL_PATH=show_full_path)
+		return fpath
+
+
+def display_node(file,fpath,ESCAPED,FULL_PATH):
+	if FULL_PATH:
+		show = fpath
+	else:
+		show = file
+
+	if ESCAPED:
+		show = re.sub(" ","\ ",show)
+		show = re.sub("'","\\'",show)
+		print show
+	else:
+		print show
+
+
+def display_help():
+	print """%s -h|-H :: this message""" % (progname)
+	print """%s -ef[o|d]""" % (progname)
+	print """%s -EF[O|D]""" % (progname)
+	return 1
+
+def recurse(r,b,t):
+	for f in t:
+		process_node(r,b,f)
+
+
+if __name__ == '__main__':
+	r = []
+	A = argv[1:]
+
+	if len(A):
+		i = 0
+		for arg in A:
+			if is_option_list.match(arg):
+				option = arg
+				del A[i]
+
+				if re.sub("H","#",option) != option or re.sub("h","#",option) != option:
+					help = display_help()
+					
+				else:
+					if re.sub("e","#",option) != option:
+						show_escaped = 1
+					if re.sub("f","#",option) != option:
+						show_full_path = 1
+					if re.sub("o","#",option) != option:
+						show_only_directories = 1
+					elif re.sub("d","#",option) != option:
+						show_directories = 1
+
+					if re.sub("E","#",option) != option:
+						show_escaped = 0
+					if re.sub("F","#",option) != option:
+						show_full_path = 0
+					if re.sub("D","#",option) != option:
+						show_directories = 0
+					elif re.sub("O","#",option) != option:
+						show_only_directories = 0
+
+			elif is_option.match(arg):
+				del A[i]
+				if arg == "--help":
+					help = display_help()
+
+				if arg == "--escaped":
+					show_escaped = 1
+				elif arg == "--full-path":
+					show_full_path = 1
+				elif arg == "--list-dirs":
+					show_directories = 1
+				elif arg == "--list-only-dirs":
+					show_only_directories = 1
+			i = i + 1
+
+	if len(A) > 0 and not help:
+		for d in A:
+			os.path.walk(d,recurse,r)
+	elif not help:
+		os.path.walk(os.getcwd(),recurse,r)

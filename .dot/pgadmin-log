@@ -1,0 +1,6 @@
+2008-04-17 17:37:13 ERROR  : Error connecting to the server: FATAL:  password authentication failed for user "bthomas"
+
+2008-04-17 17:38:33 ERROR  : Error connecting to the server: FATAL:  password authentication failed for user "bthomas"
+
+2008-04-17 17:44:58 ERROR  : ERROR:  column dep.objsubid does not exist
+

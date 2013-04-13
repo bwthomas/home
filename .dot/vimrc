@@ -1,0 +1,46 @@
+"" tabs
+set nowrap
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set smarttab
+set expandtab
+set smartindent
+
+"" pretty colors
+syntax on
+colorscheme ron
+
+"" Show trailing whitepace
+set list listchars=trail:·
+
+"" Set font & size
+"set guifont=Monaco:h16
+
+"" pathogen
+call pathogen#infect()
+
+"" meta
+set number
+let g:gitgutter_enabled = 1
+highlight clear SignColumn
+
+"" split screen vertically for multiple files
+" au VimEnter * vsplit
+
+""miscellaneous
+filetype plugin indent on
+
+"" Strip trailing whitespace
+"function! <SID>StripTrailingWhitespaces()
+"    " Preparation: save last search, and cursor position.
+"    let _s=@/
+"    let l = line(".")
+"    let c = col(".")
+"    " Do the business:
+"    %s/\s\+$//e
+"    " Clean up: restore previous search history, and cursor position
+"    let @/=_s
+"    call cursor(l, c)
+"endfunction
+""autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()

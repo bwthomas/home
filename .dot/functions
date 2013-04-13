@@ -1,0 +1,66 @@
+# with argument: prepend argument to path if unique & path exists
+path () {
+  if [ -z "$1" ]; then
+    tr : "\n" <<< $PATH
+  else
+    for DIR in $*; do
+      PATH=$(echo $PATH | sed -e "s%${DIR}%%" -e "s%::%:%" -e "s%^:%%" -e "s%:$%%")
+      if (( [ -d "$DIR" ] )); then
+        PATH="$DIR:$PATH"
+      fi
+    done
+    export PATH
+  fi
+}
+
+# file system
+up() {
+  popd 2>>/dev/null && return
+  cd .. && dirs -c
+}
+
+dis() {
+  DETRITUS="$HOME/Detritus"
+  [ -d "$DETRITUS" ] && mv $* $DETRITUS
+}
+
+# Project directory navigation
+go() {
+  EXCLUDED="/\.[a-zA-Z_-]"
+  REGEX=$(echo "$PROJECTS_DIR.*/$@.*" | sed -e 's://*:/:g')
+  MAX_DEPTH=3
+
+  if [[ -z "$@" ]]; then
+    cd $PROJECTS_DIR
+    go_message
+    return
+  fi
+
+  for DEPTH in {1..$MAX_DEPTH}
+  do
+    TARGET=$(find -E "$PROJECTS_DIR" -type d -depth "$DEPTH" -regex "$REGEX" | egrep -v "$EXCLUDED" | sort -u | head -1)
+    if [[ -d $TARGET ]]; then
+      cd $TARGET
+      go_message
+      return
+    fi
+  done
+}
+
+go_message() {
+    if $(git rev-parse 2> /dev/null); then
+      echo $(echo $PWD | sed -E -e "s:^$PROJECTS_DIR/::")
+      git status
+    else
+      echo $(echo "$PWD:" | sed -E -e "s:^$HOME/:~/:")
+      ls
+    fi
+}
+
+# Delete remote branch & push local
+repu() {
+  BRANCH=$(git rev-parse --abbrev-ref HEAD)
+  git push origin :$BRANCH 2>/dev/null
+  git push origin $BRANCH
+  git branch -u origin/$BRANCH
+}

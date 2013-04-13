@@ -9,7 +9,6 @@ if (!@ARGV) {
    chomp(@ARGV);
 }
 
-
 foreach $_ (@ARGV) {
    $old_name = $_;
    eval $regexp;

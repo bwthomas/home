@@ -45,15 +45,17 @@ go() {
       return
     fi
   done
+  echo "unknown project '$@'."
 }
 
 go_message() {
-    if $(git rev-parse 2> /dev/null); then
-      echo $(echo $PWD | sed -E -e "s:^$PROJECTS_DIR/::")
-      git status
-    else
+    GITROOT=$(git rev-parse --show-toplevel 2>/dev/null)
+    if [[ ("$GITROOT" = "$HOME") || ( -z "$GITROOT" ) ]]; then
       echo $(echo "$PWD:" | sed -E -e "s:^$HOME/:~/:")
       ls
+    else
+      echo $(echo "$GITROOT:" | sed -E -e "s:^$HOME/:~/:")
+      git status
     fi
 }
 

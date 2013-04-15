@@ -34,14 +34,16 @@ alias sd="screen -DR"
 # Miscelaneous
 alias     :q="exit"
 alias    ...="up" # See ~/.dot/functions
+alias    cdl='dirs -c'
 alias     cx='chmod +x'
 alias     df='df -Th'
 alias    dot="ls -al | egrep -v '^d|^l|^total [0123456789]+|-> \.dot/'"
-alias     ds='dirs'
-alias    dsc='dirs -c'
 alias  exit!='exit 1'
+alias     la='ls -al'
+alias     ll='ls -l'
+alias    lsd='dirs'
 alias     ms="du -hs ./* | egrep -v '[0123456789]+K|0\s+'"
 alias swatch="time watch --differences=cumulative -t -n 1 date"
 alias  timex="sudo ntpdate -u time.apple.com"
-alias   were="find . -name"
+alias   whur"find . -name"
 alias   vim="vim -O"

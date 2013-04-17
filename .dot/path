@@ -5,6 +5,5 @@
 path /usr/local/sbin
 path /usr/local/bin
 path /opt/bin
-path /usr/libexec/git-core
 path $HOME/.rbenv/bin
 path $HOME/bin

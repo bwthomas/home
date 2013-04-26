@@ -1,6 +1,7 @@
-.dot/gem/
-.dot/*history*
-.dot/keys/
-.dot/lesshst
-.dot/ssh/
-.DS_Store
+/.*
+!/.dot
+/.dot/gem/
+/.dot/*history*
+/.dot/keys/
+/.dot/lesshst
+/.dot/ssh/

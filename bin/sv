@@ -1,0 +1,23 @@
+#!/bin/bash
+
+SV_CMD="${1}"
+: ${SV_CMD:='s'}
+
+: ${SV:='sv'}
+if [ -z "$(which $SV)" ] || [ "$(which $SV)" = "$SV not found" ] || ! [ -e $(readlink -fq `which $SV`) ]; then
+  echo "$(basename $0): cannot access $SV: No such file or directory"
+  exit 1
+fi
+
+SV_DIR=$(readlink -fq ${SV_DIR:='/var/service'})
+if ! [ -d "$SV_DIR" ]; then
+  echo "$(basename $0): cannot access $SV_DIR: No such file or directory"
+  exit 1
+fi
+
+if [ -n "$USER" ] && [ $USER != 'root' ]; then
+  SV="sudo $SV"
+  [ "$(which sudo)" = "sudo not found" ] && exit 1
+fi
+
+$SV $SV_CMD $SV_DIR/*

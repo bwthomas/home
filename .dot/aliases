@@ -34,7 +34,7 @@ alias sd="screen -DR"
 # Miscelaneous
 alias     :q="exit"
 alias    ...="up" # See ~/.dot/functions
-alias    cdl='dirs -c'
+alias    cdl='cd ~ && dirs -c'
 alias     cx='chmod +x'
 alias     df='df -Th'
 alias    dot="ls -al | egrep -v '^d|^l|^total [0123456789]+|-> \.dot/'"

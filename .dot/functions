@@ -49,14 +49,23 @@ go() {
 }
 
 go_message() {
-    GITROOT=$(git rev-parse --show-toplevel 2>/dev/null)
-    if [[ ("$GITROOT" = "$HOME") || ( -z "$GITROOT" ) ]]; then
-      echo $(echo "$PWD:" | sed -E -e "s:^$HOME/:~/:")
-      ls
-    else
-      echo $(echo "$GITROOT:" | sed -E -e "s:^$HOME/:~/:")
-      git status
-    fi
+  GITROOT=$(git rev-parse --show-toplevel 2>/dev/null)
+  if [[ ("$GITROOT" = "$HOME") || ( -z "$GITROOT" ) ]]; then
+    echo $(echo "$PWD:" | sed -E -e "s:^$HOME/:~/:")
+    ls
+  else
+    echo $(echo "$GITROOT:" | sed -E -e "s:^$HOME/:~/:")
+    git status
+  fi
+}
+
+set_github_host() {
+  REMOTE_HOST=$(git config remote.origin.url | sed -e 's;^.*@;;' -e 's;^.*://;;' -e 's;.com.*$;.com;')
+  if [[ -n $REMOTE_HOST ]]; then
+    export GITHUB_HOST=$REMOTE_HOST
+  else
+    unset GITHUB_HOST
+  fi
 }
 
 # Delete remote branch & push local

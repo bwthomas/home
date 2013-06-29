@@ -12,8 +12,9 @@ export SHELL_RC_DIR=${SHELL_RC_DIR-"${HOME}/.dot"}
 [ -f "${SHELL_RC_DIR}/prompt" ]     && source "${SHELL_RC_DIR}/prompt"        # Configure interactive prompt
 
 ##############################################
-## Dynamic title for terminal windows & tabs
+## Directory Navigation
 
+## Dynamic title for terminal windows & tabs
 precmd () {
   case $TERM in
     *xterm*|ansi)
@@ -21,6 +22,9 @@ precmd () {
     ;;
   esac
 }
+
+## Set GITHUB_HOST. See ~/.functions for function definition.
+chpwd_functions=(${chpwd_functions[@]} "set_github_host")
 
 ###############################
 ##  Set environment variables

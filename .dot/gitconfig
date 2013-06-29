@@ -28,3 +28,5 @@
   editor = vim -f
 [push]
   default = matching
+[hub]
+	host = git.cashnetusa.com

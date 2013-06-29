@@ -1,51 +1,57 @@
 # cucumber
-alias cuke="cucumber -r ./features"
+alias cuke='cucumber -r ./features'
 
 # rake
-alias redb="rake db:reset db:migrate"
+alias redb='rake db:reset db:migrate'
 
 # git
-alias  br="git rev-parse --abbrev-ref HEAD"
-alias  ga="git add"
-alias  gb="git branch"
-alias  gc="git checkout"
-alias  gd="git d"
-alias gdc="git d --cached"
-alias  gl="git hist"
-alias  gs="git status"
-alias see="git s"
+alias   git='hub'
+alias    br='git rev-parse --abbrev-ref HEAD'
+alias  href='git config --get remote.$(git config branch.$(br).remote).url | sed  -e "s;:;/;" -e "s;^git@;http://;" -e "s;\.git$;/tree/$(br);"'
+alias    ga='git add'
+alias    gb='git branch'
+alias    gc='git checkout'
+alias    gd='git d'
+alias   gdc='git d --cached'
+alias    gl='git hist'
+alias    gs='git status'
+alias   see='git s'
+alias stash='git stash save "WIP:$(br)"'
+alias   pop='git stash pop'
 
 # postgres
-alias pgup="pg_ctl -l /tmp/pg_logfile start"
-alias pgdn="pg_ctl -l /tmp/pg_logfile stop -m fast"
-alias pgre="pg_ctl -l /tmp/pg_logfile stop -m fast && pg_ctl -l /tmp/pg_logfile start"
-alias pgst="pg_ctl status"
+alias pgup='pg_ctl -l /tmp/pg_logfile start'
+alias pgdn='pg_ctl -l /tmp/pg_logfile stop -m fast'
+alias pgre='pg_ctl -l /tmp/pg_logfile stop -m fast && pg_ctl -l /tmp/pg_logfile start'
+alias pgst='pg_ctl status'
 
 # pow
-alias powdn="powify server stop"
-alias powre="powify server restart"
-alias powup="powify server start"
-alias powls="powify server list"
-alias powst="powify server status"
+alias powdn='powify server stop'
+alias powre='powify server restart'
+alias powup='powify server start'
+alias powls='powify server list'
+alias powst='powify server status'
 
 # screen
-alias sd="screen -DR"
+alias sd='screen -DR'
 
 # Miscelaneous
-alias     :e="vim -O"
-alias     :q="exit"
-alias    ...="up" # See ~/.dot/functions
+alias     :e='vim -O'
+alias     :q='exit'
+alias    ...='up' # See ~/.dot/functions
 alias    cdl='cd ~ && dirs -c'
 alias     cx='chmod +x'
+alias    dia='date "+%Y%m%d"'
 alias     df='df -Th'
-alias    dot="ls -al | egrep -v '^d|^l|^total [0123456789]+|-> \.dot/'"
-alias      e="vim -O"
+alias    dot='ls -al | egrep -v "^d|^l|^total [0123456789]+|-> \.dot/"'
+alias      e='vim -O'
 alias  exit!='exit 1'
 alias     la='ls -al'
 alias     ll='ls -l'
 alias    lsd='dirs'
-alias     ms="du -hs ./* | egrep -v '[0123456789]+K|0\s+'"
-alias swatch="time watch --differences=cumulative -t -n 1 date"
-alias  timex="sudo ntpdate -u time.apple.com"
-alias    vim="vim -O"
-alias   whur="find . -name"
+alias     ms='du -hs ./* | egrep -v "[0123456789]+K|0\s+"'
+alias swatch='time watch --differences=cumulative -t -n 1 date'
+alias   sync='rsync --delete -avz -e ssh {mogget.enova.com:,}$(pwd)/'
+alias  timex='sudo ntpdate -u time.apple.com'
+alias    vim='vim -O'
+alias   whur='find . -name'

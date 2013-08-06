@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-: ${INTERVAL:='1'}
-
-if [ -e "$(which watch)" ]; then
-  watch -t -n $INTERVAL $@
-else
-  while true; do clear; $@; sleep $INTERVAL; done
-fi

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+COMMAND="git push ${1-upstream} HEAD:${2-master}"
+
+read -p "Press any key to execute '${COMMAND}'" -n1 -s
+echo
+${COMMAND}

@@ -1,7 +1,3 @@
 #!/usr/bin/env bash
 
-H=`hostname`
-U=`whoami`
-P=`pwd`
-
-echo "${U}@${H}:${P}"
+echo "$(hostname)@$(whoami):$(pwd)"

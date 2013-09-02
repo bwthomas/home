@@ -1,2 +1,5 @@
 *.swp
 *.swo
+nohup.out
+*.log
+dump.rdb

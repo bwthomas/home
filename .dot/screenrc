@@ -7,8 +7,12 @@ startup_message off
 # define the scrollback buffer
 defscrollback 10000
 
-# Change ctrl-a to ctrl-g. Useful for emacs keybindings.
-# escape ^Gg
+# Change ctrl-a to ctrl-b.
+escape ^bB
+
+# Navigation using ctrl-[arrow]
+bindkey "\033[5D" prev
+bindkey "\033[5C" next
 
 # Hangup causes screen to detatch instead of exit.
 autodetach on

@@ -3,3 +3,6 @@
 nohup.out
 *.log
 dump.rdb
+
+# srsly.
+/config/netl.yml

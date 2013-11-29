@@ -27,7 +27,7 @@ dis() {
 # Project directory navigation
 go() {
   EXCLUDED="/\.[a-zA-Z_-]"
-  REGEX=$(echo "$PROJECTS_DIR.*/$@.*" | sed -e 's://*:/:g')
+  REGEX=$(echo "$PROJECTS_DIR.*/.*$@.*" | sed -e 's://*:/:g')
   MAX_DEPTH=3
 
   if [[ -z "$@" ]]; then

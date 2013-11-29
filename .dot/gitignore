@@ -6,3 +6,5 @@ dump.rdb
 
 # srsly.
 /config/netl.yml
+
+/.rbenv-gemsets

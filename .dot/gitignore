@@ -3,8 +3,8 @@
 nohup.out
 *.log
 dump.rdb
-
-# srsly.
-/config/netl.yml
-
+.DS_Store
 /.rbenv-gemsets
+/.rbenv-version
+/.powenv
+/config/netl.yml # srsly.

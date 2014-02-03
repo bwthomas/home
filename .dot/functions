@@ -5,7 +5,7 @@ path () {
   else
     for DIR in $*; do
       PATH=$(echo $PATH | sed -e "s%${DIR}%%" -e "s%::%:%" -e "s%^:%%" -e "s%:$%%")
-      if (( [ -d "$DIR" ] )); then
+      if [ -d "$DIR" ]; then
         PATH="$DIR:$PATH"
       fi
     done
@@ -20,8 +20,12 @@ up() {
 }
 
 dis() {
-  DETRITUS="$HOME/Detritus"
-  [ -d "$DETRITUS" ] && mv $* $DETRITUS
+  TARGET="${DETRITUS-$HOME/Documents/Detritus}"
+  if [[ -d "$TARGET" ]]; then
+    mv $* $TARGET
+  else
+    echo "Detritus folder ('$TARGET') not present."
+  fi
 }
 
 # Project directory navigation

@@ -20,6 +20,11 @@ set list listchars=trail:·
 "" pathogen
 call pathogen#infect()
 
+"" NERDTree
+autocmd vimenter * if !argc() | NERDTree | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+map <C-n> :NERDTreeToggle<CR>
+
 "" meta
 set number
 let g:gitgutter_enabled = 1

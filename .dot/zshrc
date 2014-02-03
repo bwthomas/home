@@ -35,6 +35,7 @@ chpwd_functions=(${chpwd_functions[@]} "set_github_host")
 
 # Configure ZSH history
 APPEND_HISTORY=yes
+DETRITUS="${HOME}/Documents/Detritus"
 HIST_EXPIRE_DUPS_FIRST=yes
 HIST_FIND_NO_DUPS=yes
 HIST_REDUCE_BLANKS=yes
@@ -69,4 +70,4 @@ set -o pushdsilent
 ## Finish up
 
 mesg y 2>/dev/null
-sleep 1 && clear
+sleep 0.33 && clear

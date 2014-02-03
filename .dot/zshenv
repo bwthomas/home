@@ -2,5 +2,8 @@ export SHELL_RC_DIR=${SHELL_RC_DIR-"${HOME}/.dot"}                  # Set locati
 [ -f "${SHELL_RC_DIR}/path" ] && source "${SHELL_RC_DIR}/path"      # Configure PATH variable
 [ "`which rbenv`" != "rbenv not found" ] && eval "$(rbenv init - --no-rehash)"  # rbenv
 
-[ -d "/usr/local/pgsql/data" ] &&  export PGDATA="/usr/local/pgsql/data"
+[ -d "/usr/local/pgsql/data" ]  && export PGDATA="/usr/local/pgsql/data"
 [ -d "${PGDATA}/pgsql_socket" ] && export PGHOST="${PGDATA}/pgsql_socket"
+
+[ -f "/usr/local/share/chruby/chruby.sh" ] && source "/usr/local/share/chruby/chruby.sh"
+[ -f "/usr/local/share/chruby/auto.sh" ]   && source "/usr/local/share/chruby/auto.sh"

@@ -27,11 +27,7 @@ alias pgre='pg_ctl -l /tmp/pg_logfile stop -m fast && pg_ctl -l /tmp/pg_logfile 
 alias pgst='pg_ctl status'
 
 # pow
-alias powdn='powify server stop'
-alias powre='powify server restart'
-alias powup='powify server start'
-alias powls='powify server list'
-alias powst='powify server status'
+alias pow='powder'
 
 # screen
 alias sd='screen -DR'

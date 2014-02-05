@@ -21,10 +21,15 @@ up() {
 
 dis() {
   TARGET="${DETRITUS-$HOME/Documents/Detritus}"
+
   if [[ -d "$TARGET" ]]; then
-    mv $* $TARGET
+    if [[ $# -eq 0 ]]; then
+      cd $TARGET
+    else
+      mv $* $TARGET
+    fi
   else
-    echo "Detritus folder ('$TARGET') not present."
+    echo "'$TARGET' not present."
   fi
 }
 

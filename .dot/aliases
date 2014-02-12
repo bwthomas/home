@@ -1,36 +1,33 @@
-# cucumber
-alias cuke='cucumber -r ./features'
-
-# rake
-alias redb='rake db:reset db:migrate'
-
 # git
-alias   git='hub'
 alias    br='git rev-parse --abbrev-ref HEAD'
-alias  href='git config --get remote.$(git config branch.$(br).remote).url | sed  -e "s;:;/;" -e "s;^git@;http://;" -e "s;\.git$;/tree/$(br);"'
 alias    ga='git add'
 alias    gb='git branch'
 alias    gc='git checkout'
 alias    gd='git d'
 alias   gdc='git d --cached'
+alias   gin='[ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]'
+alias   git='hub'
+alias    gh='[ -n "$(which open)" -a "$(which open)" != "open not found" ] && open $(href || echo "-R ./")'
 alias    gl='git hist'
 alias    gr='git remote'
 alias    gs='git status'
+alias  gurl='git config --get remote.$(git config branch.$(br).remote).url'
+alias  href='gin && gurl | sed  -e "s;:;/;" -e "s;^git@;http://;" -e "s;\.git$;/tree/$(br);" -e "s;$;$(pwd | sed -e "s;$(git root);;" -e "s;/$;;");" -e "s;/tree/master$;;"'
+alias  pops='git stash apply'
 alias   see='git s'
-alias stash='git stash save "WIP:$(br)"'
-alias   pop='git stash pop'
+alias stash='git stash save "work in progress for $(br), $(date)"'
+
+# rubyish
+alias   be='bundle exec'
+alias cuke='cucumber -r ./features'
+alias  pow='powder'
+alias redb='rake db:reset db:migrate'
 
 # postgres
-alias pgup='pg_ctl -l /tmp/pg_logfile start'
 alias pgdn='pg_ctl -l /tmp/pg_logfile stop -m fast'
+alias pgup='pg_ctl -l /tmp/pg_logfile start'
 alias pgre='pg_ctl -l /tmp/pg_logfile stop -m fast && pg_ctl -l /tmp/pg_logfile start'
 alias pgst='pg_ctl status'
-
-# pow
-alias pow='powder'
-
-# screen
-alias sd='screen -DR'
 
 # Miscelaneous
 alias     :e='vim -O'
@@ -48,9 +45,10 @@ alias     la='ls -al'
 alias     ll='ls -l'
 alias    lsd='dirs'
 alias     ms='du -hs ./* | egrep -v "[0123456789]+K|0\s+"'
-alias   push='rsync -avz -e ssh {,mogget.enova.com:}$(pwd)/ --exclude-from ~/.dot/project-exclusions'
+alias   push='rsync -avz -e ssh {,sterling.enova.com:}$(pwd)/ --exclude-from ~/.dot/project-exclusions'
+alias     sd='screen -DR'
 alias swatch='time watch --differences=cumulative -t -n 1 date'
-alias   sync='rsync -avz -e ssh {mogget.enova.com:,}$(pwd)/ --exclude-from ~/.dot/project-exclusions'
+alias   sync='rsync -avz -e ssh {sterling.enova.com:,}$(pwd)/ --exclude-from ~/.dot/project-exclusions'
 alias  timex='sudo ntpdate -u time.apple.com'
 alias    vim='vim -O'
 alias   whur='find . -name'

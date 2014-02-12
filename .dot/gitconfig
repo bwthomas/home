@@ -22,6 +22,7 @@
   co   = checkout
   d    = diff --patience --color-words --ignore-space-change
   s    = show --patience --color-words --ignore-space-change
+  root = !pwd
 [core]
   excludesfile="~/.gitignore"
   pager = "less -F"
@@ -29,4 +30,4 @@
 [push]
   default = matching
 [hub]
-	host = git.cashnetusa.com
+  host = git.cashnetusa.com

@@ -1,6 +1,10 @@
 #!/bin/bash
 
-COMMAND="git push --tags ${1-upstream} HEAD:${2-master}"
+LOCAL=$(git rev-parse --abbrev-ref HEAD)
+BRANCH=$(git config branch.${LOCAL}.merge | sed -e 's:^.*/::')
+REMOTE=$(git config branch.${LOCAL}.remote)
+
+COMMAND="git push --force --tags ${1-$REMOTE} HEAD:${2-$BRANCH}"
 
 read -p "Press any key to execute '${COMMAND}'" -n1 -s
 echo

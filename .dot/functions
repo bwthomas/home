@@ -5,9 +5,7 @@ path () {
   else
     for DIR in $*; do
       PATH=$(echo $PATH | sed -e "s%${DIR}%%" -e "s%::%:%" -e "s%^:%%" -e "s%:$%%")
-      if [ -d "$DIR" ]; then
-        PATH="$DIR:$PATH"
-      fi
+      [ -d "$DIR" ] && PATH="$DIR:$PATH"
     done
     export PATH
   fi
@@ -37,7 +35,7 @@ dis() {
 go() {
   EXCLUDED="/\.[a-zA-Z_-]"
   REGEX=$(echo "$PROJECTS_DIR.*/.*$@.*" | sed -e 's://*:/:g')
-  MAX_DEPTH=3
+  MAX_DEPTH=4
 
   if [[ -z "$@" ]]; then
     cd $PROJECTS_DIR

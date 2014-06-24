@@ -1,0 +1,84 @@
+#!/usr/bin/env ruby
+
+EXCLUDED = [
+  "Josh Cheek",
+  "Cymen Vig",
+  "Mark Grant",
+  "Erik Peterson",
+  "Michael Baker",
+  "Steven Degutis",
+  "Jake Schmitz",
+  "prodder auto-commit",
+  "Rafia Qutab",
+  "Mark McEahern",
+  "fengb",
+  "Sean Corbett",
+  "Benjamin Feng",
+  "Craig Demyanovich",
+  "mbillock",
+  "Craig Ludington",
+  "Matt Billock",
+  "umtrey",
+  "nickmeccia",
+  "greg dressel",
+  "cpeak",
+  "Alex Skryl",
+  "Trey Springer",
+  "Yuri Lapitsky",
+  "CNU cnuapp account",
+  "git perforce import user",
+  "Shaan Sapra",
+  "JC Grubbs",
+  "jcheek",
+  "Jesse R. Adams",
+  "Automatic Script User",
+  "R2",
+  "Kurt Stephens",
+  "Derek Evanoff",
+  "Sergio Rabiela",
+].freeze
+
+def gitsays(options=nil)
+  options = [options]
+  command = ['git shortlog -ns', options].flatten.compact.join(' ')
+  output  = %x(#{command})
+  ranked  = output.split("\n").map{ |l| l.gsub(/^\s*/,"").split("\t").last }
+  ranked.reject{ |person| EXCLUDED.include?(person)}
+end
+
+def leaders(options = {})
+  top           = options[:top] || 10
+  contributors  = options[:contributors] || []
+  times         = [options[:times]].flatten(1)
+
+  times.each do |t|
+    r0 = [t].flatten(1).compact[0]
+    r1 = [t].flatten(1).compact[1]
+
+    s = "--since='#{r0}'"             unless r0.nil?
+    u = "--until='#{r1}'"             unless r1.nil?
+    p = [s,u].compact.join(' ')       unless !s && !u
+
+    alist = gitsays(p).first(top)
+    contributors |= alist
+    contributors.select!{|l| alist.include?(l) }
+  end
+
+  contributors
+end
+
+times = [
+#  ['1 months ago',  '1 week ago'],
+#  ['2 months ago',  '1 months ago'],
+#  ['3 months ago',  '2 months ago'],
+#  ['6 months ago',  '3 months ago'],
+  ['3 months ago',  '1 week ago'],
+  ['6 months ago',  '3 months ago'],
+  ['9 months ago',  '6 months ago'],
+  ['12 months ago', '9 months ago'],
+  ['18 months ago', '2 weeks ago'],
+  nil
+]
+
+top = 5
+puts leaders(times: times, top:top).first(top).join(", ")
